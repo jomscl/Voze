@@ -1,5 +1,5 @@
 
-// pines físicos de entrada
+// pines físicos de entradas
 #define I1 A4
 #define I2 A5
 #define I3 10
