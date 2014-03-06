@@ -1,5 +1,8 @@
+// rutinas digitales
+// =================
+
 void leeCanales(){
-  for (int i=0;i<=canales;i++){leeCanal(i);}  
+  for (int i=0;i<=canalesIn;i++){leeCanal(i);}  
 }
 
 void leeCanal(int canal){
@@ -18,7 +21,7 @@ void leeCanal(int canal){
 }
 
 void debugEntradas(){
-  for (int i=0;i<=canales;i++){
+  for (int i=0;i<=canalesIn;i++){
     Serial.print(entradas[i].estado);
     if (i==4){Serial.print(":");}
   }
@@ -27,7 +30,7 @@ void debugEntradas(){
 void procesaCanales(){
   byte canalAccion;
   
-  for (int i=0;i<=canales;i++){
+  for (int i=0;i<=canalesIn;i++){
     // leer a que canal afecta
     canalAccion=cAccion(i);
 	
@@ -80,4 +83,44 @@ byte cAccion(byte i){
   if (accion & B00100000){canalAccion+=2;}
   if (accion & B00010000){canalAccion+=1;}
   return canalAccion;
+}
+
+// rutinas analogicas
+// ==================
+void leeCanalesAnalog(){
+  int valor=0;
+  for (int i=0;i<=canalesInAnalog;i++){
+    entradasAnalog[i].medicion=analogRead(entradasAnalog[i].pin);
+    if (entradasAnalog[i].algoritmo==0){
+      valor=convierteVelocidad(entradasAnalog[i].medicion);
+    }
+    else
+    {
+      valor=convierteAmpere(entradasAnalog[i].medicion);
+    }
+    entradasAnalog[i].medicion=valor;
+  }  
+}
+
+int convierteVelocidad(int medicion){
+  // algoritmo para converit la medición analogica a un valor de km/s
+  int salida;
+  salida=medicion; // corregir
+  return salida;
+}
+
+int convierteAmpere(int medicion){
+  // algoritmo para converit la medición analogica a un valor de Amp.
+  int salida;
+  salida=medicion; // corregir
+  return salida;
+}
+
+void debugEntradasAnalog(){
+  for (int i=0;i<=canalesInAnalog;i++){
+    Serial.print(entradasAnalog[i].medicion);
+    Serial.print(":");
+    Serial.print(entradasAnalog[i].valor);
+    Serial.println(":");
+  }
 }

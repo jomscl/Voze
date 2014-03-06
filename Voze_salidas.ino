@@ -1,5 +1,5 @@
 void escribeCanales(){
-  for (int i=0;i<=canales;i++){escribeCanal(i);}   
+  for (int i=0;i<=canalesOut;i++){escribeCanal(i);}   
 }
 
 void escribeCanal(byte canal){
@@ -7,7 +7,7 @@ void escribeCanal(byte canal){
 }
 
 void debugSalidas(){
-  for (int i=0;i<=canales;i++){
+  for (int i=0;i<=canalesOut;i++){
     Serial.print(salidas[i].estado);
     if (i==4){Serial.print(":");}
   }

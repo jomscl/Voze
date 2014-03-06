@@ -1,3 +1,23 @@
+/*
+Descripciones de comportamientos
+- SW Intermitente Izquierdo: Rele Intermitente izquierdo + M 170:1
+- SW Intermitente Derecho:   Rele Intermitente Derecho +   M 180:1
+- Combinados (Hazzard)                                     M 120:1
+- SW Puerta:                 Rele Luz interior +           M 190:1 
+- SW Maleta:                                               M 1a0:1
+- AN Velocidad:                                            M 10vel,amp
+- AN Consumo:                                              M 10vel,amp
+- SW Luz alta:               Rele Luz alta +               M 150:1
+-                            Rele Luz estacionamiento      M 140:1
+-                            Rele Luz baja                 M 130:1
+-                            Rele Reversa                  M 1c0:1
+-                            Rele Boost                    M 1d0:1
+-                            Rele Ignicion                 M 1b0:1
+-                            Rele Luz interior             M 160:1
+-
+
+*/
+
 
 // pines físicos de entradas
 #define I1 A4
@@ -8,8 +28,8 @@
 #define I6 A6
 #define I7 A0
 #define I8 A1
-#define I9 A2
-#define I10 A3
+#define I9 A2 // velocidad
+#define I10 A3 // consumo
 
 void configEntradas(){
   int i=0;
@@ -21,8 +41,11 @@ void configEntradas(){
   creaEntrada(i,I6,0,B11110001,0);i++;
   creaEntrada(i,I7,0,B01100001,0);i++;
   creaEntrada(i,I8,0,B01110001,0);i++;
-  creaEntrada(i,I9,0,B10000001,0);i++;
-  creaEntrada(i,I10,0,B10010001,0);i++;
+  //creaEntrada(i,I9,0,B10000001,0);i++;
+  //creaEntrada(i,I10,0,B10010001,0);i++;
+  
+  creaEntradaAnalog(0,I9,0);
+  creaEntradaAnalog(1,I10,1);
 }
 
 void creaEntrada(byte pos, byte pin, boolean tipo, byte accion, byte transmitir){
@@ -33,6 +56,14 @@ void creaEntrada(byte pos, byte pin, boolean tipo, byte accion, byte transmitir)
   entradas[pos].accion=accion;
   entradas[pos].transmitir=transmitir;
   pinMode(entradas[pos].pin,INPUT_PULLUP);
+}
+
+void creaEntradaAnalog(byte pos, byte pin, byte algoritmo){
+  entradasAnalog[pos].pin=pin;
+  entradasAnalog[pos].algoritmo=algoritmo;
+  entradasAnalog[pos].medicion=0;
+  entradasAnalog[pos].valor=0;
+  pinMode(entradasAnalog[pos].pin,INPUT);
 }
 
 #define O1 12 
