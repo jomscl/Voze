@@ -1,5 +1,5 @@
 // Software creado según modelo Conceptual
-// Con Visual Studio
+// 
 
 #include <Metro.h> //Include Metro library
 #include "SoftwareSerial.h"
@@ -25,7 +25,7 @@ struct STin{
   byte pin;
   byte estado; // 0 apagado, 1 encendido
   byte estadoAnt;
-  boolean tipo; // 0 analogico, 1 digital
+  boolean tipo; // 0 lectura digital en puerto analogico, 1 digital
   byte accion; /* bit 0: 1= encendido normal,  0= encendido inverso
                   bit 1: 1= enclavamiento, 0= temporal
                   bit 2: 1= pulso, 0 = temporal

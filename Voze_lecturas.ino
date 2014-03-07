@@ -34,7 +34,7 @@ void procesaCanales(){
     // leer a que canal afecta
     canalAccion=cAccion(i);
 	
-	if (canalAccion<=10){
+	if (canalAccion<=10){ // con esto se descartan canales superiores, IE para entradas sin salidas directas
 		if(entradas[i].tiempo>0){entradas[i].tiempo--; }
     
 		// aciones tipo 00000001
