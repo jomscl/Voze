@@ -1,8 +1,10 @@
 // Software creado según modelo Conceptual
+// Con Visual Studio
 
 #include <Metro.h> //Include Metro library
 #include "SoftwareSerial.h"
 #include "EngineProtocol.h"
+//#include "libraries/arduino_serial_message_protocol_master/EngineProtocol.h"
 
 // variables de tiempo
 Metro timer = Metro(100);
@@ -15,6 +17,7 @@ Metro timer = Metro(100);
 // definiciones de tiempos, 1= 100ms
 #define tiempoEnclavamiento 50 
 #define tiempoPulso 2
+#define tiempoIntermitente 3
 byte contadorAnalog=0;
 #define tiempoAnalog 10 // para que mande los valores analogicos una vez por segundo
 
@@ -23,17 +26,17 @@ struct STin{
   byte estado; // 0 apagado, 1 encendido
   byte estadoAnt;
   boolean tipo; // 0 analogico, 1 digital
-  byte accion; /* bit 0 1= encendido normal,  0= encendido inverso
-                  bit 1 1= enclavamiento, 0= temporal
-                  bit 2 1= pulso, 0 = temporal
-                  bit 3
-                  bit 4: bit 0 de direccion de salida
+  byte accion; /* bit 0: 1= encendido normal,  0= encendido inverso
+                  bit 1: 1= enclavamiento, 0= temporal
+                  bit 2: 1= pulso, 0 = temporal
+                  bit 3:
+                  bit 4: bit 0 de direccion de salida. Si se pone 1111 no esta apuntado a ningun canal
                   bit 5: bit 1 de direccion
                   bit 6: bit 2 de direccion
-                  bit 7: bit 3 de direccion
-  */
+                  bit 7: bit 3 de direccion  */
   unsigned int tiempo; // contador para pulsos y enclavamiento
   byte transmitir; // 1= transmite, 0 = no transmite
+  byte subTipo; // el paramotro de transmicion al tablet
 };
 
 STin entradas[canalesIn+1];
@@ -50,14 +53,16 @@ STinAnalog entradasAnalog[canalesInAnalog+1];
 struct STout{
   byte pin;
   boolean estado; // 0 apagado, 1 encendido
+  byte accion; // bit 0: 0= salida normal, 1= salida intermitente
+  unsigned int tiempo; // contador del tiempo para reles pulsantes
 };
 
 STout salidas[canalesOut+1];
 
 // parametros de comunicacion
-#define ADDRESS "0001"
+#define ADDRESS "0001" // la direccion del auto
 #define BAUD_RATE 19200
-#define ADDRESSTO "0002"
+#define ADDRESSTO "0002" // la direccion de destino, en este caso, el tablet
 
 MessageBuilder mb;
 Engine engine(BAUD_RATE,ADDRESS);
@@ -81,7 +86,7 @@ void loop() {
     leeCanales();
     //debugEntradas();
     leeCanalesAnalog();
-    debugEntradasAnalog();
+    //debugEntradasAnalog();
     
     procesaCanales();
   
@@ -90,13 +95,6 @@ void loop() {
     // debugSalidas();
     escribeCanales();
     
-    if (contadorAnalog<=tiempoAnalog){
-      contadorAnalog++;
-    }
-    else
-    {
-      contadorAnalog=0;
-      enviaEntradasAnalog();
-    }
+    revisaAnalog();
   }
 }

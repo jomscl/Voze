@@ -20,11 +20,11 @@ Descripciones de comportamientos
 
 
 // pines físicos de entradas
-#define I1 A4
-#define I2 A5
-#define I3 10
-#define I4 11
-#define I5 A7 
+#define I1 A4 // SW Intermitente izquierdo
+#define I2 A5 // SW Intermitente derecho
+#define I3 10 // SW Puerta
+#define I4 11 // SW Maleta
+#define I5 A7 // SW Luz Alta
 #define I6 A6
 #define I7 A0
 #define I8 A1
@@ -33,28 +33,27 @@ Descripciones de comportamientos
 
 void configEntradas(){
   int i=0;
-  creaEntrada(i,I1,0,B00000001,1);i++;  
-  creaEntrada(i,I2,0,B00010000,0);i++;
-  creaEntrada(i,I3,1,B00100011,1);i++;
-  creaEntrada(i,I4,1,B00110101,0);i++;
-  creaEntrada(i,I5,0,B01000101,0);i++;
-  creaEntrada(i,I6,0,B11110001,0);i++;
-  creaEntrada(i,I7,0,B01100001,0);i++;
-  creaEntrada(i,I8,0,B01110001,0);i++;
-  //creaEntrada(i,I9,0,B10000001,0);i++;
-  //creaEntrada(i,I10,0,B10010001,0);i++;
+  creaEntrada(i,I1,0,B00000001,1,'7');i++;  
+  creaEntrada(i,I2,0,B00010000,1,'8');i++;
+  creaEntrada(i,I3,1,B00100011,1,'9');i++;
+  creaEntrada(i,I4,1,B00110101,0,'a');i++;
+  creaEntrada(i,I5,0,B01000101,0,'5');i++;
+  creaEntrada(i,I6,0,B11110001,0,'0');i++;
+  creaEntrada(i,I7,0,B01100001,0,'0');i++;
+  creaEntrada(i,I8,0,B01110001,0,'0');i++;
   
   creaEntradaAnalog(0,I9,0);
   creaEntradaAnalog(1,I10,1);
 }
 
-void creaEntrada(byte pos, byte pin, boolean tipo, byte accion, byte transmitir){
+void creaEntrada(byte pos, byte pin, boolean tipo, byte accion, byte transmitir, byte subTipo){
   entradas[pos].pin=pin;
   entradas[pos].estado=0;
   entradas[pos].estadoAnt=0;
   entradas[pos].tipo=tipo;
   entradas[pos].accion=accion;
   entradas[pos].transmitir=transmitir;
+  entradas[pos].subTipo=subTipo;
   pinMode(entradas[pos].pin,INPUT_PULLUP);
 }
 
@@ -66,34 +65,35 @@ void creaEntradaAnalog(byte pos, byte pin, byte algoritmo){
   pinMode(entradasAnalog[pos].pin,INPUT);
 }
 
-#define O1 12 
-#define O2 2
-#define O3 3
-#define O4 4
-#define O5 5
-#define O6 6
-#define O7 7
-#define O8 8 
-#define O9 9 
-#define O10 13  
+#define O1 12 // Rele Intermitente izquierdo
+#define O2 2  // Rele Intermitente Derecho
+#define O3 3  // Rele Luz interior
+#define O4 4  // Rele Luz alta
+#define O5 5  // Rele Reversa
+#define O6 6  
+#define O7 7  // Rele Boost
+#define O8 8  // Rele Luz baja
+#define O9 9  // Rele Ignicion 
+#define O10 13  // Rele Luz estacionamiento
 
 void configSalidas(){
   int i=0;
-  creaSalida(i,O1,0);i++;  
-  creaSalida(i,O2,0);i++;
-  creaSalida(i,O3,0);i++;
-  creaSalida(i,O4,0);i++;
-  creaSalida(i,O5,0);i++;
-  creaSalida(i,O6,0);i++;
-  creaSalida(i,O7,0);i++;
-  creaSalida(i,O8,0);i++;
-  creaSalida(i,O9,0);i++;
-  creaSalida(i,O10,0);i++;
+  creaSalida(i,O1,0,B00000001);i++;  
+  creaSalida(i,O2,0,B00000001);i++;
+  creaSalida(i,O3,0,B00000000);i++;
+  creaSalida(i,O4,0,B00000000);i++;
+  creaSalida(i,O5,0,B00000000);i++;
+  creaSalida(i,O6,0,B00000000);i++;
+  creaSalida(i,O7,0,B00000000);i++;
+  creaSalida(i,O8,0,B00000000);i++;
+  creaSalida(i,O9,0,B00000000);i++;
+  creaSalida(i,O10,0,B00000000);i++;
 }
 
-void creaSalida(byte pos, byte pin, boolean estadoInicial){
+void creaSalida(byte pos, byte pin, boolean estadoInicial, byte accion){
   salidas[pos].pin=pin;
   salidas[pos].estado=estadoInicial;
+  salidas[pos].accion=accion;
   pinMode(salidas[pos].pin,OUTPUT);
   escribeCanal(pos);
 }

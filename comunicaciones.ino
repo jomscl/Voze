@@ -1,10 +1,15 @@
-void enviaEntrada(byte canal, boolean v){
+void enviaEntrada(byte subTipo, byte valor){
   mb.setFlags(0);
   mb.setAddressFrom(ADDRESS);
   mb.setAddressTo(ADDRESS);
-  mb.setMessageType(canal+48);
-  mb.setMessageSubType(v);
-  mb.setData("data");  
+  mb.setMessageType('1');
+  mb.setMessageSubType(subTipo);
+  if (valor==0){
+    mb.setData("0");
+  }
+  else{
+    mb.setData("1");
+  }
   engine.sendMessage(mb.getMessage());
 }
 
@@ -16,8 +21,8 @@ void enviaEntradasAnalog(){
   mb.setFlags(0);
   mb.setAddressFrom(ADDRESS);
   mb.setAddressTo(ADDRESS);
-  mb.setMessageType(1);
-  mb.setMessageSubType(0);
+  mb.setMessageType('1');
+  mb.setMessageSubType('0');
   mb.setData(mensaje);  
   engine.sendMessage(mb.getMessage());
 }

@@ -16,7 +16,7 @@ void leeCanal(int canal){
   }
   if (v!=entradas[canal].estado){
     entradas[canal].estado=v;
-    if (entradas[canal].transmitir==1){enviaEntrada(canal,v);}
+    if (entradas[canal].transmitir==1){enviaEntrada(entradas[canal].subTipo,v);}
   }
 }
 
@@ -123,4 +123,14 @@ void debugEntradasAnalog(){
     Serial.print(entradasAnalog[i].valor);
     Serial.println(":");
   }
+}
+void revisaAnalog(){
+	if (contadorAnalog<=tiempoAnalog){
+		contadorAnalog++;
+	}
+	else
+	{
+		contadorAnalog=0;
+		enviaEntradasAnalog();
+	}
 }
