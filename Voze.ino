@@ -94,8 +94,6 @@ void loop() {
     
     procesaCanales();
   
-    recibeOrdenes();
-
     // debugSalidas();
     escribeCanales();
     

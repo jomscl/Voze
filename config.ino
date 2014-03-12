@@ -1,14 +1,14 @@
 /*
 Descripciones de comportamientos
-- SW Intermitente Izquierdo: Rele Intermitente izquierdo + M 170:1
-- SW Intermitente Derecho:   Rele Intermitente Derecho +   M 180:1
-- Combinados (Hazzard)                                     M 120:1
-- SW Puerta:                 Rele Luz interior +           M 190:1 
-- SW Maleta:                                               M 1a0:1
-- AN Velocidad:                                            M 10vel,amp
-- AN Consumo:                                              M 10vel,amp
-- SW Luz alta:               Rele Luz alta +               M 150:1
--                            Rele Luz estacionamiento      M 140:1
+- SW Intermitente Izquierdo: Rele Intermitente izquierdo + M 170:1    OK
+- SW Intermitente Derecho:   Rele Intermitente Derecho +   M 180:1    OK
+- Combinados (Hazzard)                                     M 120:1    OK?
+- SW Puerta:                 Rele Luz interior +           M 190:1    OK
+- SW Maleta:                                               M 1a0:1    OK
+- AN Velocidad:                                            M 10vel,amp OK
+- AN Consumo:                                              M 10vel,amp OK
+- SW Luz alta:               Rele Luz alta +               M 150:1    OK
+-                            Rele Luz estacionamiento      M 140:1    OK
 -                            Rele Luz baja                 M 130:1
 -                            Rele Reversa                  M 1c0:1
 -                            Rele Boost                    M 1d0:1
@@ -33,14 +33,14 @@ Descripciones de comportamientos
 
 void configEntradas(){
   int i=0;
-  creaEntrada(i,I1,0,B00000001,1,'7');i++;  
-  creaEntrada(i,I2,0,B00010000,1,'8');i++;
-  creaEntrada(i,I3,1,B00100011,1,'9');i++;
-  creaEntrada(i,I4,1,B00110101,0,'a');i++;
-  creaEntrada(i,I5,0,B01000101,0,'5');i++;
+  creaEntrada(i,I1,0,B00000011,1,'7');i++;  
+  creaEntrada(i,I2,0,B00010011,1,'8');i++;
+  creaEntrada(i,I3,1,B00100101,1,'9');i++;
+  creaEntrada(i,I4,1,B11110001,1,'a');i++;
+  creaEntrada(i,I5,0,B00110011,1,'5');i++;
   creaEntrada(i,I6,0,B11110001,0,'0');i++;
-  creaEntrada(i,I7,0,B01100001,0,'0');i++;
-  creaEntrada(i,I8,0,B01110001,0,'0');i++;
+  creaEntrada(i,I7,0,B11110001,0,'0');i++;
+  creaEntrada(i,I8,0,B11110001,0,'0');i++;
   
   creaEntradaAnalog(0,I9,0);
   creaEntradaAnalog(1,I10,1);
@@ -69,11 +69,11 @@ void creaEntradaAnalog(byte pos, byte pin, byte algoritmo){
 #define O2 2  // Rele Intermitente Derecho
 #define O3 3  // Rele Luz interior
 #define O4 4  // Rele Luz alta
-#define O5 5  // Rele Reversa
+#define O5 5  // Rele Reversa. Rele conectado a GND
 #define O6 6  
-#define O7 7  // Rele Boost
+#define O7 7  // Rele Boost. Rele conectado a GND
 #define O8 8  // Rele Luz baja
-#define O9 9  // Rele Ignicion 
+#define O9 9  // Rele Ignicion. Rele conectado a GND
 #define O10 13  // Rele Luz estacionamiento
 
 void configSalidas(){
