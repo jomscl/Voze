@@ -3,7 +3,15 @@ void escribeCanales(){
 }
 
 void escribeCanal(byte canal){
-  digitalWrite(salidas[canal].pin,salidas[canal].estado);
+  if (salidas[canal].accion & B00000001){ // intermitente
+    if (salidas[canal].estado==true){
+      salidas[canal].pin=estadoIntermitente;
+    }
+  }
+  else
+  {
+    digitalWrite(salidas[canal].pin,salidas[canal].estado);
+  } // fin if continuo o intermitente
 }
 
 void debugSalidas(){

@@ -87,6 +87,7 @@ byte cAccion(byte i){
 
 // rutinas analogicas
 // ==================
+
 void leeCanalesAnalog(){
   int valor=0;
   for (int i=0;i<=canalesInAnalog;i++){

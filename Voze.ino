@@ -17,7 +17,11 @@ Metro timer = Metro(100);
 // definiciones de tiempos, 1= 100ms
 #define tiempoEnclavamiento 50 
 #define tiempoPulso 2
+
+byte contadorIntermitente=0;
 #define tiempoIntermitente 3
+boolean estadoIntermitente=false;
+
 byte contadorAnalog=0;
 #define tiempoAnalog 10 // para que mande los valores analogicos una vez por segundo
 
@@ -36,7 +40,7 @@ struct STin{
                   bit 7: bit 3 de direccion  */
   unsigned int tiempo; // contador para pulsos y enclavamiento
   byte transmitir; // 1= transmite, 0 = no transmite
-  byte subTipo; // el paramotro de transmicion al tablet
+  byte subTipo; // el parametro de transmicion al tablet
 };
 
 STin entradas[canalesIn+1];
@@ -96,5 +100,14 @@ void loop() {
     escribeCanales();
     
     revisaAnalog();
+    cuentaIntermitente();
   }
+}
+
+void cuentaIntermitente(){
+  if (contadorIntermitente==0){
+    contadorIntermitente=tiempoIntermitente + 1;
+    estadoIntermitente!=estadoIntermitente;
+  }
+  contadorIntermitente--;
 }
