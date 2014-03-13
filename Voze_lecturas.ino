@@ -1,3 +1,7 @@
+#define SWIntIzq 0 // Pos en el vector de ese rele
+#define SWIntDer 1 // Pos en el vector de ese rele
+#define RIntIzq 0 // Pos en el vector de ese rele
+#define RIntDer 1 // Pos en el vector de ese rele
 // rutinas digitales
 // =================
 
@@ -34,43 +38,42 @@ void procesaCanales(){
     // leer a que canal afecta
     canalAccion=cAccion(i);
 	
-	if (canalAccion<=10){ // con esto se descartan canales superiores, IE para entradas sin salidas directas
-		if(entradas[i].tiempo>0){entradas[i].tiempo--; }
-    
-		// aciones tipo 00000001
-		if (entradas[i].tiempo==0 && !(entradas[i].accion & B00000110)){
-			salidas[canalAccion].estado=entradas[i].estado ^ !(entradas[i].accion & B00000001); 
-		}// fin 00000001
-    
-		// aciones tipo B00000010
-		if ((entradas[i].accion & B00000010) && (entradas[i].estado==true)){
-		  if (entradas[i].tiempo==0){
-			salidas[canalAccion].estado=!salidas[canalAccion].estado;
-		  }
-		  entradas[i].tiempo=tiempoPulso;
-		} // fin 00000010
-    
-		// aciones tipo B00000100
-		if (entradas[i].accion & B00000100){
-		  if ((entradas[i].estado==true) ){
-			if (entradas[i].tiempo==0){
-			  salidas[canalAccion].estado=!(entradas[i].accion & B00000001);
-			  entradas[i].tiempo=tiempoEnclavamiento;
-			}  
-		  }
-		  else{
-			if(entradas[i].tiempo==0){
-				salidas[canalAccion].estado=entradas[i].accion & B00000001;
-			}
-		  }
+    if (canalAccion<=10){ // con esto se descartan canales superiores, IE para entradas sin salidas directas
+      if(entradas[i].tiempo>0){entradas[i].tiempo--; }
 
-		} // fin 00000100
+      // aciones tipo 00000001, encendido directo o inverso
+      if (entradas[i].tiempo==0 && !(entradas[i].accion & B00000110)){
+	salidas[canalAccion].estado=entradas[i].estado ^ !(entradas[i].accion & B00000001); 
+      }// fin 00000001
 
-	} // fin canalAccion<=10
+      // aciones tipo B00000010, normal o con enclavamiento
+      if ((entradas[i].accion & B00000010) && (entradas[i].estado==true)){
+	if (entradas[i].tiempo==0){
+          salidas[canalAccion].estado=!salidas[canalAccion].estado;
+          entradas[i].tiempo=tiempoPulso;
+          // caso especial de los flashers
+          if (salidas[canalAccion].estado==true){
+            if (i==SWIntIzq){salidas[RIntDer].estado==false;}
+            if (i==SWIntDer){salidas[RIntIzq].estado==false;} 
+	  }
+        }
+      } // fin 00000010
+
+      // aciones tipo B00000100, pulso o normal
+      if (entradas[i].accion & B00000100){
+	if ((entradas[i].estado==true) ){
+	  if (entradas[i].tiempo==0){
+	    salidas[canalAccion].estado=!(entradas[i].accion & B00000001);
+	    entradas[i].tiempo=tiempoEnclavamiento;
+	  }  
+	}
 	else{
-		// en el caso de que no se tenga que actuar, solo transmitir
-
-	} // fin canalAccion > 10 
+	  if(entradas[i].tiempo==0){
+	    salidas[canalAccion].estado=entradas[i].accion & B00000001;
+	  }
+	}
+      } // fin 00000100
+    } // fin canalAccion<=10
   } // fin for pricipal  
 } // fin procesaCanales
 

@@ -9,11 +9,11 @@ Descripciones de comportamientos
 - AN Consumo:                                              M 10vel,amp OK
 - SW Luz alta:               Rele Luz alta +               M 150:1    OK
 -                            Rele Luz estacionamiento      M 140:1    OK
--                            Rele Luz baja                 M 130:1
--                            Rele Reversa                  M 1c0:1
--                            Rele Boost                    M 1d0:1
--                            Rele Ignicion                 M 1b0:1
--                            Rele Luz interior             M 160:1
+-                            Rele Luz baja                 M 130:1    OK
+-                            Rele Reversa                  M 1c0:1    OK
+-                            Rele Boost                    M 1d0:1    OK
+-                            Rele Ignicion                 M 1b0:1    OK
+-                            Rele Luz interior             M 160:1    OK
 -
 
 */
