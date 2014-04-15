@@ -89,17 +89,15 @@ byte cAccion(byte i){
 // ==================
 
 void leeCanalesAnalog(){
-  int valor=0;
   for (int i=0;i<=canalesInAnalog;i++){
     entradasAnalog[i].medicion=analogRead(entradasAnalog[i].pin);
     if (entradasAnalog[i].algoritmo==0){
-      valor=convierteVelocidad(entradasAnalog[i].medicion);
+      entradasAnalog[i].valor=convierteVelocidad(entradasAnalog[i].medicion);
     }
     else
     {
-      valor=convierteAmpere(entradasAnalog[i].medicion);
+      entradasAnalog[i].valor=convierteAmpere(entradasAnalog[i].medicion);
     }
-    entradasAnalog[i].medicion=valor;
   }  
 }
 

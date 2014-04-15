@@ -48,8 +48,8 @@ STin entradas[canalesIn+1];
 struct STinAnalog{ // estructura para guardar los puertos analógicos
   byte pin;
   byte algoritmo; // 0= algoritmo de velocidad, 1= Algoritmo de amperes
-  int medicion;
-  int valor;  
+  int medicion; // 0 1023
+  int valor;  // valo r convertido a parametro electrico
 };
 
 STinAnalog entradasAnalog[canalesInAnalog+1];
@@ -65,11 +65,11 @@ STout salidas[canalesOut+1];
 
 // parametros de comunicacion
 #define ADDRESS "0001" // la direccion del auto
-#define BAUD_RATE 19200
+#define BAUD_RATE 28800
 #define ADDRESSTO "0002" // la direccion de destino, en este caso, el tablet
 
 MessageBuilder mb;
-Engine engine(BAUD_RATE,ADDRESS);
+Engine engine(ADDRESS);
 
 void setup() {
 
@@ -78,8 +78,9 @@ void setup() {
   
   engine.setup();
   engine.setMessageProcessingFuction(&processMessage);
+  engine.enableHardWareCommPort(COMM_HARDWARE_0);
   
-  //Serial.begin(9600);
+  Serial.begin(BAUD_RATE);
   //Serial.println("OK");
 }
 
@@ -99,6 +100,7 @@ void loop() {
     
     revisaAnalog();
     cuentaIntermitente();
+ 
   }
 }
 
@@ -109,3 +111,9 @@ void cuentaIntermitente(){
   }
   contadorIntermitente--;
 }
+
+void processMessage(char flags, String address_from, char type,char sub_type,String data)
+{
+  processMessageCom(flags, address_from, type,sub_type,data);
+}
+

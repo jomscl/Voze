@@ -12,7 +12,7 @@
 void enviaEntrada(byte subTipo, byte valor){
   mb.setFlags(0);
   mb.setAddressFrom(ADDRESS);
-  mb.setAddressTo(ADDRESS);
+  mb.setAddressTo(ADDRESSTO);
   mb.setMessageType('1');
   mb.setMessageSubType(subTipo);
   if (valor==0){
@@ -31,14 +31,16 @@ void enviaEntradasAnalog(){
   mensaje+=String(entradasAnalog[1].valor);
   mb.setFlags(0);
   mb.setAddressFrom(ADDRESS);
-  mb.setAddressTo(ADDRESS);
+  mb.setAddressTo(ADDRESSTO);
   mb.setMessageType('1');
   mb.setMessageSubType('0');
   mb.setData(mensaje);  
   engine.sendMessage(mb.getMessage());
+  
 }
 
-void processMessage(char flags, String address_from, char type,char sub_type,String data){
+void processMessageCom(char flags, String address_from, char type,char sub_type,String data){
+  
   boolean mensajeEstado=false;
   // analizo la data del mensaje
   if (data=="0"){mensajeEstado=false;}

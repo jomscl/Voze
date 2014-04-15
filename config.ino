@@ -3,7 +3,7 @@ Descripciones de comportamientos
 - SW Intermitente Izquierdo: Rele Intermitente izquierdo + M 170:1    OK
 - SW Intermitente Derecho:   Rele Intermitente Derecho +   M 180:1    OK
 - Combinados (Hazzard)                                     M 120:1    OK?
-- SW Puerta:                 Rele Luz interior +           M 190:1    OK
+- SW Puerta:                 Rele Luz interior +           M 190:1 + 160:1
 - SW Maleta:                                               M 1a0:1    OK
 - AN Velocidad:                                            M 10vel,amp OK
 - AN Consumo:                                              M 10vel,amp OK
