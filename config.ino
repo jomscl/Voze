@@ -24,12 +24,12 @@ Descripciones de comportamientos
 #define I2 A5 // SW Intermitente derecho
 #define I3 10 // SW Puerta
 #define I4 11 // SW Maleta
-#define I5 A7 // SW Luz Alta
+#define I5 A7 
 #define I6 A6
-#define I7 A0
-#define I8 A1
-#define I9 A2 // velocidad
-#define I10 A3 // consumo
+#define I7 A0 // velocidad
+#define I8 A1 // consumo
+#define I9 A2 // SW Luz Alta
+#define I10 A3 
 
 void configEntradas(){
   int i=0;
@@ -37,13 +37,13 @@ void configEntradas(){
   creaEntrada(i,I2,0,B00010011,1,'8');i++;
   creaEntrada(i,I3,1,B00100101,1,'9');i++;
   creaEntrada(i,I4,1,B11110001,1,'a');i++;
-  creaEntrada(i,I5,0,B00110011,1,'5');i++;
+  creaEntrada(i,I9,0,B00110011,1,'5');i++;
   creaEntrada(i,I6,0,B11110001,0,'0');i++;
   creaEntrada(i,I7,0,B11110001,0,'0');i++;
   creaEntrada(i,I8,0,B11110001,0,'0');i++;
   
-  creaEntradaAnalog(0,I9,0);
-  creaEntradaAnalog(1,I10,1);
+  creaEntradaAnalog(0,I7,0);
+  creaEntradaAnalog(1,I8,1);
 }
 
 void creaEntrada(byte pos, byte pin, boolean tipo, byte accion, byte transmitir, byte subTipo){

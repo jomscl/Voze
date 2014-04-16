@@ -1,6 +1,21 @@
-// Software creado según modelo Conceptual
+// Iniciando proceso de debug con tablet
 // 
+/*
+Observaciones SW Tablet
+- Al conectarse el tablet al auto, se debe mandar la señal de encender las luces bajas y las de estacionamiento
+  Por supuesto que el usuario las puede apagar manualmente despues en el tablet.
+- Me da la impresion que la respuesta del tablet no es siempre instantanea, si uno hace muchos comandos seguidos, como que no pesca
+- Agregar la opcion de luz interior manual
 
+Elementos que Daniel tiene que decidir
+- Creo que las luces bajas y altas son exluyentes
+- Que siempre que se enciendan las luces bajas o altas deben estar encendidas las de estacionamiento
+- Que si la puerta o el maletero está abierta, se debe desabilitar la ignición
+- Que el boton reversa funcione para cualquier lado.
+- Creo que el mapa necesita mas funciones, como centrar en punto actual, direcciones favoritas, etc.
+
+
+*/
 #include <Metro.h> //Include Metro library
 #include "SoftwareSerial.h"
 #include "EngineProtocol.h"

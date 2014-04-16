@@ -102,9 +102,9 @@ void leeCanalesAnalog(){
 }
 
 int convierteVelocidad(int medicion){
-  // algoritmo para converit la medición analogica a un valor de km/s
+  // algoritmo para converit la medición analogica a un valor de km/h
   int salida;
-  salida=medicion; // corregir
+  salida=map(medicion,0,1024,0,500); // transformado segun la proporcion 0v=0, 5v=500
   return salida;
 }
 
