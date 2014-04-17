@@ -5,7 +5,7 @@ void escribeCanales(){
 void escribeCanal(byte canal){
   if (salidas[canal].accion & B00000001){ // intermitente
     if (salidas[canal].estado==true){
-      salidas[canal].pin=estadoIntermitente;
+      digitalWrite(salidas[canal].pin,estadoIntermitente);
     }
   }
   else

@@ -1,3 +1,8 @@
+#define SwIntIzq 0
+#define SwIntDer 1
+#define RIntIzq 0 // Pos en el vector de ese rele
+#define RIntDer 1 // Pos en el vector de ese rele
+
 // rutinas digitales
 // =================
 
@@ -7,6 +12,8 @@ void leeCanales(){
 
 void leeCanal(int canal){
   boolean v;
+  byte canalAccion;
+  canalAccion=cAccion(canal);
   if (entradas[canal].tipo==1){
     v=!digitalRead(entradas[canal].pin);
   }
@@ -17,6 +24,15 @@ void leeCanal(int canal){
   if (v!=entradas[canal].estado){
     entradas[canal].estado=v;
     if (entradas[canal].transmitir==1){enviaEntrada(entradas[canal].subTipo,v);}
+    if (entradas[canal].transmitir==2 && entradas[canal].accion & B00000010 && !salidas[canalAccion].estado){
+      enviaEntrada(entradas[canal].subTipo,v);
+      
+      // Ver si hay que apagar el otro intermitente
+      if (v==1){revisaIntermitente(canal);}
+      
+      // apagar canal
+      if (v==0){digitalWrite(salidas[canalAccion].pin,!bitRead(entradas[canal].accion,0));}
+    }
   }
 }
 
@@ -83,6 +99,29 @@ byte cAccion(byte i){
   if (accion & B00100000){canalAccion+=2;}
   if (accion & B00010000){canalAccion+=1;}
   return canalAccion;
+}
+
+void revisaIntermitente(byte canal){
+  byte releAnt;
+  byte canalAnt;
+  // definicion del canale antiguo
+  if (canal==SwIntIzq){
+    releAnt=RIntDer;
+    canalAnt=SwIntDer;
+  }
+  else{
+    releAnt=RIntIzq;
+    canalAnt=SwIntIzq;
+  }
+  
+  // verificar que este encendido
+  if (salidas[releAnt].estado==true){
+    // apagar el canal
+    salidas[releAnt].estado=false;
+    digitalWrite(salidas[releAnt].pin,!bitRead(entradas[canalAnt].accion,0));
+    enviaEntrada(entradas[canalAnt].subTipo,0);
+    
+  }
 }
 
 // rutinas analogicas

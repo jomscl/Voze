@@ -6,6 +6,8 @@ Observaciones SW Tablet
   Por supuesto que el usuario las puede apagar manualmente despues en el tablet.
 - Me da la impresion que la respuesta del tablet no es siempre instantanea, si uno hace muchos comandos seguidos, como que no pesca
 - Agregar la opcion de luz interior manual
+- Creo que al apretar hazzard deben prenderse y apagarse las dos flechas en el tablet
+- Cuando le mando dos mensajes muy seguido, solo toma el primero.
 
 Elementos que Daniel tiene que decidir
 - Creo que las luces bajas y altas son exluyentes
@@ -14,6 +16,9 @@ Elementos que Daniel tiene que decidir
 - Que el boton reversa funcione para cualquier lado.
 - Creo que el mapa necesita mas funciones, como centrar en punto actual, direcciones favoritas, etc.
 
+Cosas que no estan pensadas:
+- Algoritmo de volocidad y consumo
+- Funcionamiento del odometro
 
 */
 #include <Metro.h> //Include Metro library
@@ -35,7 +40,7 @@ Metro timer = Metro(100);
 
 byte contadorIntermitente=0;
 #define tiempoIntermitente 3
-boolean estadoIntermitente=false;
+boolean estadoIntermitente=true;
 
 byte contadorAnalog=0;
 #define tiempoAnalog 10 // para que mande los valores analogicos una vez por segundo
@@ -54,7 +59,7 @@ struct STin{
                   bit 6: bit 2 de direccion
                   bit 7: bit 3 de direccion  */
   unsigned int tiempo; // contador para pulsos y enclavamiento
-  byte transmitir; // 1= transmite, 0 = no transmite
+  byte transmitir; // 1= transmite, 0 = no transmite, 2= transmite cuando el switch vuelve al estado normal
   byte subTipo; // el parametro de transmicion al tablet
 };
 
@@ -122,9 +127,11 @@ void loop() {
 void cuentaIntermitente(){
   if (contadorIntermitente==0){
     contadorIntermitente=tiempoIntermitente + 1;
-    estadoIntermitente!=estadoIntermitente;
+    estadoIntermitente=!estadoIntermitente;
   }
   contadorIntermitente--;
+  //Serial.print(contadorIntermitente);
+  //Serial.println(estadoIntermitente);
 }
 
 void processMessage(char flags, String address_from, char type,char sub_type,String data)

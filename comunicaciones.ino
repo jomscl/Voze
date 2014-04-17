@@ -9,6 +9,9 @@
 #define RIgnic 8 // Pos en el vector de ese rele
 #define RLuzEst 9 // Pos en el vector de ese rele
 
+#define SwIntIzq 0
+#define SwIntDer 1
+
 void enviaEntrada(byte subTipo, byte valor){
   mb.setFlags(0);
   mb.setAddressFrom(ADDRESS);
@@ -35,8 +38,8 @@ void enviaEntradasAnalog(){
   mb.setMessageType('1');
   mb.setMessageSubType('0');
   mb.setData(mensaje);  
-  engine.sendMessage(mb.getMessage());
-  
+  //engine.sendMessage(mb.getMessage());
+  //Serial.println("");
 }
 
 void processMessageCom(char flags, String address_from, char type,char sub_type,String data){
@@ -74,8 +77,14 @@ void processMessageCom(char flags, String address_from, char type,char sub_type,
     
     //Combinados (Hazzard)                                     M 120:1
     if (sub_type=='2'){
+      byte tmp;
       salidas[RIntIzq].estado=mensajeEstado;
       salidas[RIntDer].estado=mensajeEstado;
+      
+      //Intento mandar una señal a los intermitentes del tablet, pero no funciona
+      //if (mensajeEstado){tmp='1';}else{tmp='0';}
+      //enviaEntrada(entradas[SwIntIzq].subTipo,tmp);
+      //enviaEntrada(entradas[SwIntDer].subTipo,tmp);
     }
     
   } // fin IF type==1

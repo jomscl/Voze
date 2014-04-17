@@ -33,11 +33,11 @@ Descripciones de comportamientos
 
 void configEntradas(){
   int i=0;
-  creaEntrada(i,I1,0,B00000011,1,'7');i++;  
-  creaEntrada(i,I2,0,B00010011,1,'8');i++;
+  creaEntrada(i,I1,0,B00000011,2,'7');i++;  
+  creaEntrada(i,I2,0,B00010011,2,'8');i++;
   creaEntrada(i,I3,1,B00100101,1,'9');i++;
   creaEntrada(i,I4,1,B11110001,1,'a');i++;
-  creaEntrada(i,I9,0,B00110011,1,'5');i++;
+  creaEntrada(i,I9,0,B00110011,2,'5');i++;
   creaEntrada(i,I6,0,B11110001,0,'0');i++;
   creaEntrada(i,I7,0,B11110001,0,'0');i++;
   creaEntrada(i,I8,0,B11110001,0,'0');i++;
