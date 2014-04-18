@@ -38,8 +38,8 @@ void enviaEntradasAnalog(){
   mb.setMessageType('1');
   mb.setMessageSubType('0');
   mb.setData(mensaje);  
-  //engine.sendMessage(mb.getMessage());
-  //Serial.println("");
+  engine.sendMessage(mb.getMessage());
+  Serial.println("");
 }
 
 void processMessage(char flags, String address_from, char type,char sub_type,String data){
