@@ -32,11 +32,13 @@ extern "C" void __cxa_pure_virtual() {;}
 
 //
 //
+void cuentaIntermitente();
 void leeCanales();
 void leeCanal(int canal);
 void debugEntradas();
 void procesaCanales();
 byte cAccion(byte i);
+void revisaIntermitente(byte canal);
 void leeCanalesAnalog();
 int convierteVelocidad(int medicion);
 int convierteAmpere(int medicion);
@@ -45,12 +47,11 @@ void revisaAnalog();
 void escribeCanales();
 void escribeCanal(byte canal);
 void debugSalidas();
-void enviaEntrada(byte canal, boolean v);
+void enviaEntrada(byte subTipo, byte valor);
 void enviaEntradasAnalog();
-void recibeOrdenes();
 void processMessage(char flags, String address_from, char type,char sub_type,String data);
 void configEntradas();
-void creaEntrada(byte pos, byte pin, boolean tipo, byte accion, byte transmitir);
+void creaEntrada(byte pos, byte pin, boolean tipo, byte accion, byte transmitir, byte subTipo);
 void creaEntradaAnalog(byte pos, byte pin, byte algoritmo);
 void configSalidas();
 void creaSalida(byte pos, byte pin, boolean estadoInicial, byte accion);

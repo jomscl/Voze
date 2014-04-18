@@ -24,7 +24,7 @@ Cosas que no estan pensadas:
 #include <Metro.h> //Include Metro library
 #include "SoftwareSerial.h"
 #include "EngineProtocol.h"
-//#include "libraries/arduino_serial_message_protocol_master/EngineProtocol.h"
+//#include "libraries\arduino_serial_message_protocol_master\EngineProtocol.h"
 
 // variables de tiempo
 Metro timer = Metro(100);
@@ -132,10 +132,5 @@ void cuentaIntermitente(){
   contadorIntermitente--;
   //Serial.print(contadorIntermitente);
   //Serial.println(estadoIntermitente);
-}
-
-void processMessage(char flags, String address_from, char type,char sub_type,String data)
-{
-  processMessageCom(flags, address_from, type,sub_type,data);
 }
 

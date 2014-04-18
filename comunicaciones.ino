@@ -42,7 +42,7 @@ void enviaEntradasAnalog(){
   //Serial.println("");
 }
 
-void processMessageCom(char flags, String address_from, char type,char sub_type,String data){
+void processMessage(char flags, String address_from, char type,char sub_type,String data){
   
   boolean mensajeEstado=false;
   // analizo la data del mensaje
@@ -86,18 +86,5 @@ void processMessageCom(char flags, String address_from, char type,char sub_type,
       //enviaEntrada(entradas[SwIntIzq].subTipo,tmp);
       //enviaEntrada(entradas[SwIntDer].subTipo,tmp);
     }
-    
   } // fin IF type==1
-  
-    //Serial.println("Received message: ");
-    //Serial.print("Flags: ");
-    //Serial.println((int)flags);
-    //Serial.print("From: ");
-    //Serial.println(address_from);
-    //Serial.print("Type: ");
-    //Serial.println(type);
-    //Serial.print("Sub-Type: ");
-    //Serial.println(sub_type);
-    //Serial.print("Data: ");
-    //Serial.println(data);
 }
