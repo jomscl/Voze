@@ -7,6 +7,9 @@ void escribeCanal(byte canal){
     if (salidas[canal].estado==true){
       digitalWrite(salidas[canal].pin,estadoIntermitente);
     }
+    else{
+      digitalWrite(salidas[canal].pin,(salidas[canal].estado & B00000010));
+    }
   }
   else
   {

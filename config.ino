@@ -80,7 +80,7 @@ void configSalidas(){
   int i=0;
   creaSalida(i,O1,0,B00000001);i++;  
   creaSalida(i,O2,0,B00000001);i++;
-  creaSalida(i,O3,0,B00000000);i++;
+  creaSalida(i,O3,0,B00000010);i++;
   creaSalida(i,O4,0,B00000000);i++;
   creaSalida(i,O5,0,B00000000);i++;
   creaSalida(i,O6,0,B00000000);i++;

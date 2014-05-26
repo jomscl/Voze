@@ -78,6 +78,7 @@ struct STout{
   byte pin;
   boolean estado; // 0 apagado, 1 encendido
   byte accion; // bit 0: 0= salida normal, 1= salida intermitente
+               // bit 1: 0= estado normal apagado, estado normal encendido
   unsigned int tiempo; // contador del tiempo para reles pulsantes
 };
 

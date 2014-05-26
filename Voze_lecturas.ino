@@ -70,13 +70,14 @@ void procesaCanales(){
 		if (entradas[i].accion & B00000100){
 		  if ((entradas[i].estado==true) ){
 			if (entradas[i].tiempo==0){
-			  salidas[canalAccion].estado=!(entradas[i].accion & B00000001);
+			  salidas[canalAccion].estado=(entradas[i].accion & B00000001);
 			  entradas[i].tiempo=tiempoEnclavamiento;
 			}  
 		  }
 		  else{
 			if(entradas[i].tiempo==0){
-				salidas[canalAccion].estado=entradas[i].accion & B00000001;
+				//salidas[canalAccion].estado=!entradas[i].accion & B00000001;
+                                salidas[canalAccion].estado=!(entradas[i].accion & B00000001);
 			}
 		  }
 
